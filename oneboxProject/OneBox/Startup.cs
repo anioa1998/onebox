@@ -30,6 +30,8 @@ namespace OneBox
 
             services.AddScoped<ILockerRepository, LockerRepository>();
             services.AddScoped<ICourierRepository, CourierRepository>();
+            services.AddScoped<IPackRepository, PackRepository>();
+            services.AddScoped<IPostBoxRepository, PostBoxRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

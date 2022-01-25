@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OneBox.DTOs;
+using OneBox.Enums;
 using OneBox.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,18 @@ namespace OneBox.Controllers
     {
         private readonly ILockerRepository _lockerRepository;
         private readonly ICourierRepository _courierRepository;
+        private readonly IPackRepository _packRepository;
+        private readonly IPostBoxRepository _postBoxRepository;
 
-        public LockerController(ILockerRepository lockerRepository, ICourierRepository courierRepository)
+        public LockerController(ILockerRepository lockerRepository, 
+            ICourierRepository courierRepository, 
+            IPackRepository packRepository, 
+            IPostBoxRepository postBoxRepository)
         {
             _lockerRepository = lockerRepository;
             _courierRepository = courierRepository;
+            _packRepository = packRepository;
+            _postBoxRepository = postBoxRepository;
         }
 
         [HttpPost("streets")]
@@ -30,13 +38,13 @@ namespace OneBox.Controllers
         [HttpGet("pack/{packId}")]
         public ActionResult<int> GetPostBox([FromRoute] int packId)
         {
-            int postBoxId;
-            if(!_lockerRepository.GetPostBox(packId, out postBoxId))
-            {
-                return NotFound();
-            }
+            //var packDTO = _packRepository.GetPack(packId);
+            //if(packDTO.PostBoxDTO == null || packDTO.State == PackState.P_SERVICE)
+            //{
+            //    _postBoxRepository.GetPostBox(packId.)
+            //}
 
-            return Ok(postBoxId);
+            return Ok();
         }
 
         [HttpGet("courier/{courierId}")]

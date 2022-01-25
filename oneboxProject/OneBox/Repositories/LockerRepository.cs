@@ -21,9 +21,5 @@ namespace OneBox.Repositories
             throw new NotImplementedException();
         }
 
-        public bool GetPostBox(int idPack, out int idPostBox)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
