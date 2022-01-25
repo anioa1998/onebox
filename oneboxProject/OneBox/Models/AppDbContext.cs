@@ -10,7 +10,7 @@ namespace OneBox.Models
 
         public DbSet<Courier> Couriers { get; set; }
         public DbSet<Pack> Packs { get; set; }
-        public DbSet<ParcelLocker> ParcelLockers { get; set; } 
+        public  DbSet<ParcelLocker> ParcelLockers { get; set; } 
         public DbSet<PostBox> PostBoxes { get; set; } 
     }
 }

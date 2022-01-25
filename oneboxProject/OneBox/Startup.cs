@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneBox.Models;
+using OneBox.Repositories;
 using System;
 
 namespace OneBox
@@ -26,6 +27,9 @@ namespace OneBox
             services.AddControllers();
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Data Source={Environment.CurrentDirectory}\\onebox_db_2022.db"));
+
+            services.AddScoped<ILockerRepository, LockerRepository>();
+            services.AddScoped<ICourierRepository, CourierRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

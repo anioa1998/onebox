@@ -13,6 +13,7 @@ namespace OneBox.Models
         public PackState State { get; set; }
         public ParcelLocker SenderParcel { get; set; }
         public ParcelLocker RecipientParcel { get; set; }
+        public PostBox PostBox { get; set; }
         public Courier Courier { get; set; }
     }
 }

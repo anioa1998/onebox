@@ -1,6 +1,11 @@
-﻿namespace OneBox.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OneBox.DTOs
 {
-    public class ParcelLocker //paczkomat
+    public class LockerDTO
     {
         public int Id { get; set; }
         public string Street { get; set; }

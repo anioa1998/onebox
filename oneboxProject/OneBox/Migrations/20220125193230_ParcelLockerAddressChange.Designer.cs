@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneBox.Models;
 
 namespace OneBox.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220125193230_ParcelLockerAddressChange")]
+    partial class ParcelLockerAddressChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +50,6 @@ namespace OneBox.Migrations
                     b.Property<DateTime>("ModifedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PostBoxId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("RecipientParcelId")
                         .HasColumnType("INTEGER");
 
@@ -72,8 +71,6 @@ namespace OneBox.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourierId");
-
-                    b.HasIndex("PostBoxId");
 
                     b.HasIndex("RecipientParcelId");
 
@@ -133,10 +130,6 @@ namespace OneBox.Migrations
                         .WithMany()
                         .HasForeignKey("CourierId");
 
-                    b.HasOne("OneBox.Models.PostBox", "PostBox")
-                        .WithMany()
-                        .HasForeignKey("PostBoxId");
-
                     b.HasOne("OneBox.Models.ParcelLocker", "RecipientParcel")
                         .WithMany()
                         .HasForeignKey("RecipientParcelId");
@@ -146,8 +139,6 @@ namespace OneBox.Migrations
                         .HasForeignKey("SenderParcelId");
 
                     b.Navigation("Courier");
-
-                    b.Navigation("PostBox");
 
                     b.Navigation("RecipientParcel");
 
