@@ -20,7 +20,7 @@ namespace OneBox.Helpers
 
         public PostBoxDTO GetPostBox(int packId)
         {
-            throw new NotImplementedException();
+            return new PostBoxDTO();
         }
     }
 }

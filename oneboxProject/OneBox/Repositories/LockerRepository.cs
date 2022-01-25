@@ -1,4 +1,6 @@
-﻿using OneBox.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using OneBox.DTOs;
+using OneBox.Enums;
 using OneBox.Models;
 using System;
 using System.Collections.Generic;
@@ -17,12 +19,25 @@ namespace OneBox.Repositories
 
         public List<int> GetAllFilledPostBoxes(int lockerId)
         {
-            throw new NotImplementedException();
+            var postboxIds = _appDbContext.PostBoxes.Include("ParcelLockers")
+                                                  .Where(p => p.ParcelLocker.Id == lockerId && p.State == PostBoxState.B_FULL)
+                                                  .Select(p => p.Id)                                                  
+                                                  .ToList();
+            return postboxIds;
         }
 
         public List<PostBoxDTO> GetAllPostBoxes(int lockerId)
         {
-            throw new NotImplementedException();
+            var postboxes = _appDbContext.PostBoxes.Include("ParcelLockers")
+                                                   .Where(p => p.ParcelLocker.Id == lockerId)
+                                                   .Select(p => new PostBoxDTO()
+                                                   {
+                                                       Id = p.Id,
+                                                       Size = p.Size,
+                                                       State = p.State
+                                                   })
+                                                   .ToList();
+            return postboxes;
         }
 
         public List<LockerDTO> GetLockersOnStreets(StreetsLockerDTO streetsLockerDTO)
