@@ -1,4 +1,19 @@
-﻿@page
+﻿@page "/gen"
 @model OneBox.Pages.GenerateLabelModel
 @{
 }
+
+<div>
+
+    <form asp-page-handler="SearchPostBox" method="post">
+        <label for="FirstName">First Name:</label>
+        <input type="text" name="postCode" value="" />
+        <button type="submit">Znajdź paczkomat</button>
+    </form>
+
+
+    @if (Model.ShowMatches)
+    {
+        @Html.DropDownListFor(model => Model.MatchAddress,new SelectList(Model.MatchAddress),"Wybierz kackomat")
+    }
+</div>
