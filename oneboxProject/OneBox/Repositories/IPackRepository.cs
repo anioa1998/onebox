@@ -7,5 +7,6 @@ namespace OneBox.Repositories
     {
         PackDTO GetPack(int packId);
         Pack GetPackModel(int packId);
+        void UpdatePackModel(PackDTO packDTO);
     }
 }

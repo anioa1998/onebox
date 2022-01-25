@@ -1,4 +1,5 @@
 ﻿using OneBox.DTOs;
+using OneBox.Enums;
 using OneBox.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,15 @@ namespace OneBox.Helpers
 
         public PostBoxDTO GetPostBox(int packId)
         {
-            return new PostBoxDTO();
+            var postbox = new PostBoxDTO();
+            var pack = _packRepository.GetPackModel(packId);
+
+            if(pack.State == PackState.P_NEW)
+            {
+                postbox = _postBoxRepository.GetPostBox(pack.SenderParcel.Id, pack.Size);
+
+            }
+            if(pack.State == PackState.P_SENT && )
         }
     }
 }
