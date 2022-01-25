@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OneBox.DTOs;
-using OneBox.Enums;
 using OneBox.Helpers;
 using OneBox.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OneBox.Controllers
 {
@@ -18,8 +14,8 @@ namespace OneBox.Controllers
         private readonly ICourierRepository _courierRepository;
         private readonly IPostBoxHelper _postBoxHelper;
 
-        public LockerController(ILockerRepository lockerRepository, 
-            ICourierRepository courierRepository, 
+        public LockerController(ILockerRepository lockerRepository,
+            ICourierRepository courierRepository,
             IPostBoxHelper postBoxHelper)
         {
             _lockerRepository = lockerRepository;
