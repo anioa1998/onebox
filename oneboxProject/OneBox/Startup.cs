@@ -25,6 +25,9 @@ namespace OneBox
         {
             services.AddRazorPages();
             services.AddControllers();
+
+
+            // services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite($"Data Source={Environment.CurrentDirectory}\\database.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
