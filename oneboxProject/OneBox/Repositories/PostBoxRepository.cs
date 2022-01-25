@@ -8,7 +8,7 @@ namespace OneBox.Repositories
 {
     public class PostBoxRepository : IPostBoxRepository
     {
-        public PostBoxDTO GetPostBox(int id)
+        public PostBoxDTO GetPostBox(int postBoxId)
         {
             throw new NotImplementedException();
         }

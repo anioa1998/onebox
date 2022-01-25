@@ -16,7 +16,7 @@ namespace OneBox.Repositories
             throw new NotImplementedException();
         }
 
-        public List<LockerDTO> GetLockersOnStreets(List<string> streets, string city)
+        public List<LockerDTO> GetLockersOnStreets(StreetsLockerDTO streetsLockerDTO)
         {
             throw new NotImplementedException();
         }

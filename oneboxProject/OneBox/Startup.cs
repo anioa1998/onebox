@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OneBox.Helpers;
 using OneBox.Models;
 using OneBox.Repositories;
 using System;
@@ -32,6 +33,8 @@ namespace OneBox
             services.AddScoped<ICourierRepository, CourierRepository>();
             services.AddScoped<IPackRepository, PackRepository>();
             services.AddScoped<IPostBoxRepository, PostBoxRepository>();
+
+            services.AddScoped<IPostBoxHelper, PostBoxHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
