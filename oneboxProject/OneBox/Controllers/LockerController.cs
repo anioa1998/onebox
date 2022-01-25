@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OneBox.DTOs;
 using OneBox.Enums;
+using OneBox.Helpers;
 using OneBox.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,36 +16,27 @@ namespace OneBox.Controllers
     {
         private readonly ILockerRepository _lockerRepository;
         private readonly ICourierRepository _courierRepository;
-        private readonly IPackRepository _packRepository;
-        private readonly IPostBoxRepository _postBoxRepository;
+        private readonly IPostBoxHelper _postBoxHelper;
 
         public LockerController(ILockerRepository lockerRepository, 
             ICourierRepository courierRepository, 
-            IPackRepository packRepository, 
-            IPostBoxRepository postBoxRepository)
+            IPostBoxHelper postBoxHelper)
         {
             _lockerRepository = lockerRepository;
             _courierRepository = courierRepository;
-            _packRepository = packRepository;
-            _postBoxRepository = postBoxRepository;
+            _postBoxHelper = postBoxHelper;
         }
 
         [HttpPost("streets")]
-        public ActionResult<List<LockerDTO>> GetLockers([FromBody] List<string> streets, [FromBody] string city)
+        public ActionResult<List<LockerDTO>> GetLockers([FromBody] StreetsLockerDTO streetsLockerDTO)
         {
-            return Ok(_lockerRepository.GetLockersOnStreets(streets, city));
+            return Ok(_lockerRepository.GetLockersOnStreets(streetsLockerDTO));
         }
 
         [HttpGet("pack/{packId}")]
-        public ActionResult<int> GetPostBox([FromRoute] int packId)
+        public ActionResult<PostBoxDTO> GetPostBox([FromRoute] int packId)
         {
-            //var packDTO = _packRepository.GetPack(packId);
-            //if(packDTO.PostBoxDTO == null || packDTO.State == PackState.P_SERVICE)
-            //{
-            //    _postBoxRepository.GetPostBox(packId.)
-            //}
-
-            return Ok();
+            return Ok(_postBoxHelper.GetPostBox(packId));
         }
 
         [HttpGet("courier/{courierId}")]
