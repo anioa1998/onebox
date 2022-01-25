@@ -1,4 +1,5 @@
 ﻿using OneBox.DTOs;
+using OneBox.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace OneBox.Repositories
     public class PackRepository : IPackRepository
     {
         public PackDTO GetPack(int packId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Pack GetPackModel(int packId)
         {
             throw new NotImplementedException();
         }
