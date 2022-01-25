@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using OneBox.DTOs;
 using OneBox.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
@@ -11,12 +13,14 @@ namespace OneBox.Pages
 {
     public class GenerateLabelModel : PageModel
     {
-        public bool ShowMatches { get; set; }
-        public List<string> MatchAddress { get; set; } = new List<string>();
+        public bool ShowMatches { get; set; } = false;
+        public StreetsLockerDTO StreetsLockerList { get; set; } = new StreetsLockerDTO();
+
+        public string selected { get; set; }
+
 
         public void OnGet()
         {
-            ShowMatches = false;
         }
 
         public void OnPostSearchPostBox(string postcode)
@@ -38,18 +42,25 @@ namespace OneBox.Pages
                     {
                         var result = response.Content.ReadAsStringAsync().Result;
                         var matchStreets = JsonConvert.DeserializeObject<IEnumerable<PostCodeApiVM>>(result);
+                        StreetsLockerList.Streets = new List<string>();
 
                         foreach(var street in matchStreets)
                         {
-                            MatchAddress.Add(street.ulica);
+                            StreetsLockerList.Streets.Add(street.ulica);
                             // tutaj znalezenie paczkomatów do przypisanych ulic 
                         }
-
+                        StreetsLockerList.City = matchStreets.Select(x => x.miejscowosc).FirstOrDefault();
                         ShowMatches = true;
                     }
                 }
                 catch (Exception) { }
             }
+        }
+
+        public void OnPostGenerate(string selectedAddress)
+        {
+            string dwdwda = selected;
+            string x = "dwdw";
         }
     }
 }

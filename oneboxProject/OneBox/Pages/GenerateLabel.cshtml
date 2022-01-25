@@ -6,14 +6,31 @@
 <div>
 
     <form asp-page-handler="SearchPostBox" method="post">
-        <label for="FirstName">First Name:</label>
+        <label for="FirstName">Wpisz swój kod pocztowy: </label>
         <input type="text" name="postCode" value="" />
-        <button type="submit">Znajdź paczkomat</button>
+        <button type="submit">Znajdź paczkomat w okolicy</button>
     </form>
-
 
     @if (Model.ShowMatches)
     {
-        @Html.DropDownListFor(model => Model.MatchAddress,new SelectList(Model.MatchAddress),"Wybierz kackomat")
+        <form asp-page-handler="Generate" method="post">
+
+            @Html.DropDownListFor(model => Model.StreetsLockerList, new SelectList(Model.StreetsLockerList.Streets), "Wybierz paczkomat", new { name = "selectedAddress"})
+
+            <label for="StartNumber">Podaj swój numer telefonu: </label>
+            <input type="text" name="StartNumber" value="" />
+
+            <label for="EndNumber">Podaj numer telefonu odbiorcy : </label>
+            <input type="text" name="EndNumber" value="" />
+
+            <select name="packSize">
+                <option value="">Wskaż gabaryt</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
+
+            <button type="submit">Generuj etykietę</button>
+        </form>
     }
 </div>
