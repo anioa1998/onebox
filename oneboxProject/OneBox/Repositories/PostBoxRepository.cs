@@ -1,4 +1,5 @@
 ﻿using OneBox.DTOs;
+using OneBox.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace OneBox.Repositories
             throw new NotImplementedException();
         }
 
-        public PostBoxDTO GetPostBox(int lockerId, int size)
+        public PostBoxDTO GetPostBox(int lockerId, Size size)
         {
             throw new NotImplementedException();
         }

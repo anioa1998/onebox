@@ -2,6 +2,6 @@
 {
     public interface ICourierRepository
     {
-        bool IsCourierCheck(int id);
+        bool IsCourierCheck(int courierId);
     }
 }

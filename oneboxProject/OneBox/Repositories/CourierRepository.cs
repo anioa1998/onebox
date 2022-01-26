@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OneBox.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,16 @@ namespace OneBox.Repositories
 {
     public class CourierRepository : ICourierRepository
     {
-        public bool IsCourierCheck(int id)
+        private readonly AppDbContext _appDbContext;
+
+        public CourierRepository(AppDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
+        }
+
+        public bool IsCourierCheck(int courierId)
+        {
+            return _appDbContext.Couriers.Any(c => c.Id == courierId);
         }
     }
 }
