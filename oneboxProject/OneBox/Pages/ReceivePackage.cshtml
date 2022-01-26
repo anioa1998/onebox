@@ -1,0 +1,76 @@
+﻿@page "/receive"
+@model OneBox.Pages.ReceivePackageModel
+
+<h1 class="text-center">Odbierz paczkę!</h1>
+<br />
+<form asp-page-handler="InputLabel2" method="post" class="form-group">
+    <label for="EndNumber">Podaj swoj numer telefonu: </label>
+    <input type="text" name="EndNumber" value="" class="form-control" /> <br />
+
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile02">
+        <label class="custom-file-label" for="inputGroupFile02">qrkod.png</label>
+    </div>
+    <br />
+    <br />
+    <button type="submit" class="btn btn-success">Odbierz przesyłkę</button>
+
+</form>
+
+<br />
+<table class="table table-bordered table-success">
+    <tbody>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row" style="background-color: orange"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="text-center" style="color:green">Twoja paczka znajduje się w skrytce Nr: 27</h3>

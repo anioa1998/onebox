@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OneBox.DTOs;
 using OneBox.Models;
+using OneBox.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,18 @@ namespace OneBox.Pages
 {
     public class GenerateLabelModel : PageModel
     {
+        private ILockerRepository _lockerRepository;
+
+        public GenerateLabelModel(ILockerRepository lockerRepository)
+        {
+            _lockerRepository = lockerRepository;
+        }
+
         public bool ShowMatches { get; set; } = false;
         public StreetsLockerDTO StreetsLockerList { get; set; } = new StreetsLockerDTO();
+        public List<LockerDTO> lockers { get; set; } = new List<LockerDTO>();
 
-        public string selected { get; set; }
-
+        public List<SelectListItem> items { get; set; } = new List<SelectListItem>();
 
         public void OnGet()
         {
@@ -50,6 +59,13 @@ namespace OneBox.Pages
                             // tutaj znalezenie paczkomatów do przypisanych ulic 
                         }
                         StreetsLockerList.City = matchStreets.Select(x => x.miejscowosc).FirstOrDefault();
+                        lockers = _lockerRepository.GetLockersOnStreets(StreetsLockerList);
+                       
+
+                        foreach(var locker in lockers)
+                        {
+                            items.Add(new SelectListItem { Text = locker.Street, Value = locker.Street });
+                        }
                         ShowMatches = true;
                     }
                 }
@@ -57,9 +73,8 @@ namespace OneBox.Pages
             }
         }
 
-        public void OnPostGenerate(string selectedAddress)
+        public void OnPostGenerate(string SelectedStreet)
         {
-            string dwdwda = selected;
             string x = "dwdw";
         }
     }

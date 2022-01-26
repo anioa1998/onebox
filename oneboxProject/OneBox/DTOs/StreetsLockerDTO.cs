@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OneBox.DTOs
 {
@@ -9,6 +6,5 @@ namespace OneBox.DTOs
     {
         public List<string> Streets { get; set; }
         public string City { get; set; }
-        public string SelectedVendor { get; set; }
     }
 }

@@ -15,6 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\img\form.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\package.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\receive.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="onebox_db_2022.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
