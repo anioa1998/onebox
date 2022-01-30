@@ -23,8 +23,9 @@ namespace OneBox.Pages
         }
 
         public bool ShowMatches { get; set; } = false;
-        public StreetsLockerDTO StreetsLockerList { get; set; } = new StreetsLockerDTO();
-        public List<LockerDTO> lockers { get; set; } = new List<LockerDTO>();
+        public bool MatchError { get; set; } = false;
+        public List<LockerDTO> InputLocker { get; set; } = new List<LockerDTO>();
+        public List<LockerDTO> FoundLockers { get; set; } = new List<LockerDTO>();
 
         public void OnGet() { }
 
@@ -46,32 +47,29 @@ namespace OneBox.Pages
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Deserializacja danych z API
                         var result = response.Content.ReadAsStringAsync().Result;
                         var matchStreets = JsonConvert.DeserializeObject<IEnumerable<PostCodeApiVM>>(result);
-                        StreetsLockerList.Streets = new List<string>();
 
                         foreach(var street in matchStreets)
                         {
-                            // tworzenie listy ulic
-                            StreetsLockerList.Streets.Add(street.ulica);
-                            // tutaj znalezenie paczkomatów do przypisanych ulic 
+                            InputLocker.Add(new LockerDTO
+                            {
+                                Postcode = postcode,
+                                City = street.miejscowosc,
+                                Street = street.ulica
+                            });
                         }
-                        // wskazanie miejscowoœci
-                        StreetsLockerList.City = matchStreets.Select(x => x.miejscowosc).FirstOrDefault();
-
-
-
-
-
-                        lockers = _lockerRepository.GetLockersOnStreets(StreetsLockerList);
-                       
-
+                        FoundLockers = _lockerRepository.GetLockersOnStreets(InputLocker).ToList();
+                        HashSet<string> existLockers = new HashSet<string>(FoundLockers.Select(s => s.Street));
+                        var results = InputLocker.Where(m => !existLockers.Contains(m.Street)).ToList();
 
                         ShowMatches = true;
                     }
                 }
-                catch (Exception) { }
+                catch (Exception) 
+                {
+                    MatchError = true;
+                }
             }
         }
 

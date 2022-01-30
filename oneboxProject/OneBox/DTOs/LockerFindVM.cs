@@ -2,7 +2,7 @@
 
 namespace OneBox.DTOs
 {
-    public class StreetsLockerDTO
+    public class LockerFindVM
     {
         public List<string> Streets { get; set; }
         public string City { get; set; }

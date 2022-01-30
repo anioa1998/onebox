@@ -23,11 +23,11 @@ namespace OneBox.Controllers
             _postBoxHelper = postBoxHelper;
         }
 
-        [HttpPost("streets")]
-        public ActionResult<List<LockerDTO>> GetLockers([FromBody] StreetsLockerDTO streetsLockerDTO)
-        {
-            return Ok(_lockerRepository.GetLockersOnStreets(streetsLockerDTO));
-        }
+        //[HttpPost("streets")]
+        //public ActionResult<List<LockerDTO>> GetLockers([FromBody] LockerFindVM streetsLockerDTO)
+        //{
+        //    return Ok(_lockerRepository.GetLockersOnStreets(streetsLockerDTO));
+        //}
 
         [HttpGet("pack/{packId}")]
         public ActionResult<PostBoxDTO> GetPostBox([FromRoute] int packId)

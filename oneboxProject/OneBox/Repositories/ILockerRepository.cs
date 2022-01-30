@@ -5,7 +5,7 @@ namespace OneBox.Repositories
 {
     public interface ILockerRepository
     {
-        List<LockerDTO> GetLockersOnStreets(StreetsLockerDTO streetsLockerDTO);
+        List<LockerDTO> GetLockersOnStreets(List<LockerDTO> inputStreet);
         List<int> GetAllFilledPostBoxes(int lockerId);
         List<PostBoxDTO> GetAllPostBoxes(int lockerId);
     }

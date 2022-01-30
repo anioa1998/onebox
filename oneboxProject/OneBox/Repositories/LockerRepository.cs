@@ -40,13 +40,13 @@ namespace OneBox.Repositories
             return postboxes;
         }
 
-        public List<LockerDTO> GetLockersOnStreets(StreetsLockerDTO streetsLockerDTO)
+        public List<LockerDTO> GetLockersOnStreets(List<LockerDTO> inputStreet)
         {
             var lockers = new List<LockerDTO>();
 
-            foreach(var street in streetsLockerDTO.Streets)
+            foreach(var street in inputStreet)
             {
-                var listLockers = _appDbContext.ParcelLockers.Where(p => p.Street == street && p.City == streetsLockerDTO.City)
+                var listLockers = _appDbContext.ParcelLockers.Where(p => p.Street == street.Street && p.City == street.City)
                                                              .Select(p => new LockerDTO()
                                                              {
                                                                  Id = p.Id,
