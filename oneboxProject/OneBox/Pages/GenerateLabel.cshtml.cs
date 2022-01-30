@@ -26,11 +26,7 @@ namespace OneBox.Pages
         public StreetsLockerDTO StreetsLockerList { get; set; } = new StreetsLockerDTO();
         public List<LockerDTO> lockers { get; set; } = new List<LockerDTO>();
 
-        public List<SelectListItem> items { get; set; } = new List<SelectListItem>();
-
-        public void OnGet()
-        {
-        }
+        public void OnGet() { }
 
         public void OnPostSearchPostBox(string postcode)
         {
@@ -42,6 +38,7 @@ namespace OneBox.Pages
 
                 try
                 {
+                    // Pobieranie danych z API          
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(uri);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -49,23 +46,28 @@ namespace OneBox.Pages
 
                     if (response.IsSuccessStatusCode)
                     {
+                        // Deserializacja danych z API
                         var result = response.Content.ReadAsStringAsync().Result;
                         var matchStreets = JsonConvert.DeserializeObject<IEnumerable<PostCodeApiVM>>(result);
                         StreetsLockerList.Streets = new List<string>();
 
                         foreach(var street in matchStreets)
                         {
+                            // tworzenie listy ulic
                             StreetsLockerList.Streets.Add(street.ulica);
                             // tutaj znalezenie paczkomatów do przypisanych ulic 
                         }
+                        // wskazanie miejscowoœci
                         StreetsLockerList.City = matchStreets.Select(x => x.miejscowosc).FirstOrDefault();
+
+
+
+
+
                         lockers = _lockerRepository.GetLockersOnStreets(StreetsLockerList);
                        
 
-                        foreach(var locker in lockers)
-                        {
-                            items.Add(new SelectListItem { Text = locker.Street, Value = locker.Street });
-                        }
+
                         ShowMatches = true;
                     }
                 }

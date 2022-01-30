@@ -29,7 +29,9 @@ namespace OneBox.Helpers
                 postbox = _postBoxRepository.GetPostBox(pack.SenderParcel.Id, pack.Size);
 
             }
-            if(pack.State == PackState.P_SENT && )
+            //if(pack.State == PackState.P_SENT && )
+
+            return null;
         }
     }
 }

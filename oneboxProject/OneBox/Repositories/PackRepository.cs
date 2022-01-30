@@ -46,5 +46,10 @@ namespace OneBox.Repositories
                                       .Include("ParcelLockers")
                                       .Single(p => p.Id == packId);
         }
+
+        public void UpdatePackModel(PackDTO packDTO)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

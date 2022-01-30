@@ -16,7 +16,7 @@
     {
     <form asp-page-handler="Generate" method="post">
         <label for="AvailableLockers">Znalezione dostępne paczkomaty: </label>
-        @Html.DropDownListFor(model => Model.StreetsLockerList, new SelectList(Model.StreetsLockerList.Streets), "Wybierz Paczkomat", new { name = "selectedAddress" })
+        @Html.DropDownList("SelectedStreet", new SelectList(Model.StreetsLockerList.Streets), "Wybierz Paczkomat", new { name = "SelectedStreet" })
         <br />
 
         <div class="form-row">
