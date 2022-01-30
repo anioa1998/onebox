@@ -3,74 +3,86 @@
 
 <h1 class="text-center">Odbierz paczkę!</h1>
 <br />
-<form asp-page-handler="InputLabel2" method="post" class="form-group">
-    <label for="EndNumber">Podaj swoj numer telefonu: </label>
-    <input type="text" name="EndNumber" value="" class="form-control" /> <br />
-
+<form method="post" class="form-group" enctype="multipart/form-data">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile02">
-        <label class="custom-file-label" for="inputGroupFile02">qrkod.png</label>
+        <input type="file" class="custom-file-input" id="inputGroupFile01" asp-for="Upload">
+        <label class="custom-file-label" for="inputGroupFile01">
+            @if (Model.Upload != null)
+            {
+                @Model.Upload.FileName
+            }
+            else
+            {
+                <a>Wskaż plik</a>
+            }
+        </label>
     </div>
     <br />
-    <br />
-    <button type="submit" class="btn btn-success">Odbierz przesyłkę</button>
-
+    <button type="submit" class="btn btn-primary">Odbierz przesyłkę</button>
 </form>
 
 <br />
-<table class="table table-bordered table-success">
-    <tbody>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-        </tr>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-        </tr>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-        </tr>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row" style="background-color: orange"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-        </tr>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-        </tr>
-    </tbody>
-</table>
+@if (Model.ShowResult)
+{
+    <table class="table table-bordered table-success">
+        <tbody>
+            <tr>
+                <th scope="row" style="@(Model.PackageId == 1 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 2 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 3 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 4 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 5 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 6 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 7 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 8 ? "background-color: red" : "")"></th>
+            </tr>
+            <tr>
+                <th scope="row" style="@(Model.PackageId == 9 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 10 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 11 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 12 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 13 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 14 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 15 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 16 ? "background-color: red" : "")"></th>
+            </tr>
+            <tr>
+                <th scope="row" style="@(Model.PackageId == 17 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 18 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 19 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 20 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 21 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 22 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 23 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 24 ? "background-color: red" : "")"></th>
+            </tr>
+            <tr>
+                <th scope="row" style="@(Model.PackageId == 25 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 26 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 27 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 28 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 29 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 30 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 31 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 32 ? "background-color: red" : "")"></th>
+            </tr>
+            <tr>
+                <th scope="row" style="@(Model.PackageId == 33 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 34 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 35 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 36 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 37 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 38 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 39 ? "background-color: red" : "")"></th>
+                <th scope="row" style="@(Model.PackageId == 40 ? "background-color: red" : "")"></th>
+            </tr>
+        </tbody>
+    </table>
 
-<h3 class="text-center" style="color:green">Twoja paczka znajduje się w skrytce Nr: 27</h3>
+    <h3 class="text-center" style="color:green">Twoja paczka znajduje się w skrytce Nr: @Model.PackageId</h3>
+
+}
+@if (Model.ShowError)
+{
+    <h3 class="text-center" style="color:red">Nie znaleziono paczki! Spróbuj ponownie.</h3>
+}

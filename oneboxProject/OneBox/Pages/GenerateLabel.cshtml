@@ -14,35 +14,38 @@
 
     @if (Model.ShowMatches)
     {
-    <form asp-page-handler="Generate" method="post">
-        <label for="AvailableLockers">Znalezione dostępne paczkomaty: </label>
-        @Html.DropDownList("SelectedStreet", new SelectList(Model.InputLocker.Streets), "Wybierz Paczkomat", new { name = "SelectedStreet" })
-        <br />
+        <h3 class="text-center" style="color:red">Rozpoznano miasto: @Model.FoundedCity</h3>
 
-        <div class="form-row">
-            <div class="col">
-                <label for="StartNumber">Podaj swój numer telefonu: </label> <br />
-                <input type="text" name="StartNumber" value="" class="form-control" /> <br />
+
+        <form asp-page-handler="Generate" method="post">
+            <label for="AvailableLockers">Znalezione dostępne paczkomaty: </label>
+            @Html.DropDownList("SelectedStreet", new SelectList(Model.lockersToDisplay), "Wybierz Paczkomat", new { name = "SelectedStreet" })
+            <br />
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="StartNumber">Podaj swój numer telefonu: </label> <br />
+                    <input type="text" name="StartNumber" value="" class="form-control" /> <br />
+                </div>
+                <div class="col">
+                    <label for="EndNumber">Podaj numer telefonu odbiorcy : </label>
+                    <input type="text" name="EndNumber" value="" class="form-control" /> <br />
+                </div>
             </div>
-            <div class="col">
-                <label for="EndNumber">Podaj numer telefonu odbiorcy : </label>
-                <input type="text" name="EndNumber" value="" class="form-control" /> <br />
-            </div>
-        </div>
-        <br />
+            <br />
 
-        <select name="packSize" class="form-control">
-            <option value="">Wskaż gabaryt</option>
-            <option value="1">A</option>
-            <option value="2">B</option>
-            <option value="3">C</option>
-        </select>
-        <br />
+            <select name="packSize" class="form-control">
+                <option value="">Wskaż gabaryt</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
+            <br />
 
-        <button type="submit" class="btn btn-success">Generuj etykietę!</button>
-    </form>
+            <button type="submit" class="btn btn-success">Generuj etykietę!</button>
+        </form>
     }
-    @else if(Model.MatchError)
+    @if (Model.MatchError)
     {
         <h3 class="text-center" style="color:red">Nie znaleziono paczkomatu!</h3>
     }

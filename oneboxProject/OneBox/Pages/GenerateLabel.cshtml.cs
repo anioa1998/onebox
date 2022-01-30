@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OneBox.DTOs;
 using OneBox.Models;
@@ -16,29 +15,34 @@ namespace OneBox.Pages
     public class GenerateLabelModel : PageModel
     {
         private ILockerRepository _lockerRepository;
+        private IPackRepository _packRepository;
 
-        public GenerateLabelModel(ILockerRepository lockerRepository)
+        public GenerateLabelModel(ILockerRepository lockerRepository, IPackRepository packRepository)
         {
             _lockerRepository = lockerRepository;
+            _packRepository = packRepository;
         }
 
         public bool ShowMatches { get; set; } = false;
         public bool MatchError { get; set; } = false;
+        public string FoundedCity { get; set; } = "";
+
         public List<LockerDTO> InputLocker { get; set; } = new List<LockerDTO>();
         public List<LockerDTO> FoundLockers { get; set; } = new List<LockerDTO>();
+        public List<string> lockersToDisplay { get; set; } = new List<string>();
 
         public void OnGet() { }
 
         public void OnPostSearchPostBox(string postcode)
         {
-            Regex postcodeRgx = new Regex(@"^([0-9]{2})(-[0-9]{3})?$");
-
-            if (postcodeRgx.IsMatch(postcode))
+            try
             {
-                string uri = "http://kodpocztowy.intami.pl/api/" + postcode;
+                Regex postcodeRgx = new Regex(@"^([0-9]{2})(-[0-9]{3})?$");
 
-                try
+                if (postcode != null && postcodeRgx.IsMatch(postcode))
                 {
+                    string uri = "http://kodpocztowy.intami.pl/api/" + postcode;
+
                     // Pobieranie danych z API          
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(uri);
@@ -50,7 +54,7 @@ namespace OneBox.Pages
                         var result = response.Content.ReadAsStringAsync().Result;
                         var matchStreets = JsonConvert.DeserializeObject<IEnumerable<PostCodeApiVM>>(result);
 
-                        foreach(var street in matchStreets)
+                        foreach (var street in matchStreets)
                         {
                             InputLocker.Add(new LockerDTO
                             {
@@ -59,23 +63,51 @@ namespace OneBox.Pages
                                 Street = street.ulica
                             });
                         }
+
+                        FoundedCity = InputLocker.Select(x => x.City).FirstOrDefault();
                         FoundLockers = _lockerRepository.GetLockersOnStreets(InputLocker).ToList();
                         HashSet<string> existLockers = new HashSet<string>(FoundLockers.Select(s => s.Street));
-                        var results = InputLocker.Where(m => !existLockers.Contains(m.Street)).ToList();
+                        var resultsLockers = InputLocker.Where(m => !existLockers.Contains(m.Street)).ToList();
+
+                        foreach (var item in resultsLockers)
+                        {
+                            lockersToDisplay.Add(item.Street);
+                        }
 
                         ShowMatches = true;
                     }
+                    else
+                    {
+                        throw new Exception();
+                    }
                 }
-                catch (Exception) 
+                else
                 {
-                    MatchError = true;
+                    throw new Exception();
                 }
+            }
+            catch (Exception)
+            {
+                MatchError = true;
             }
         }
 
-        public void OnPostGenerate(string SelectedStreet)
+        public void OnPostGenerate(string SelectedStreet, string StartNumber, string EndNumber, string packSize)
         {
-            string x = "dwdw";
+            try
+            {
+                // tutaj wkleiæ logikê zamawiania paczki, która zwraca Id paczki
+                int packId = 1;
+
+
+                // przekierowanie na stronê tworz¹c¹ QR
+                string createUrl = "http://localhost:9000/api/create/qr/" + packId;
+                Redirect(createUrl);
+            }
+            catch (Exception) { }
+            {
+                Redirect(@"\");
+            }
         }
     }
 }
