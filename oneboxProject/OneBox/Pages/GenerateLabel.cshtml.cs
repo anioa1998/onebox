@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using OneBox.DTOs;
+using OneBox.Enums;
 using OneBox.Models;
 using OneBox.Repositories;
 using System;
@@ -91,14 +92,27 @@ namespace OneBox.Pages
                 MatchError = true;
             }
         }
-
-        public void OnPostGenerate(string SelectedStreet, string StartNumber, string EndNumber, string packSize)
+        //dodano city i postcode
+        //packsize zwróæ w postaci int 0 - S , 1 - M, 2 - L
+        public void OnPostGenerate(string SelectedStreet, string postcode, string city, string StartNumber, string EndNumber, int packSize)
         {
             try
             {
-                // tutaj wkleiæ logikê zamawiania paczki, która zwraca Id paczki
-                int packId = 1;
+                var locker = new LockerDTO() { City = city, Postcode = postcode, Street = SelectedStreet };
+                var list = new List<LockerDTO>();
+                list.Add(locker);
+                var recipientLocker = _lockerRepository.GetLockersOnStreets(list).First();
+                var lockerModel = _lockerRepository.GetParcelLocker(recipientLocker.Id);
 
+                var packDTO = new PackDTO()
+                {
+                    RecipientPhone = EndNumber,
+                    SenderPhone = StartNumber,
+                    Size = (Size)packSize
+                };
+               
+                // tutaj wkleiæ logikê zamawiania paczki, która zwraca Id paczki
+                int packId = _packRepository.AddPack(packDTO, lockerModel);
 
                 // przekierowanie na stronê tworz¹c¹ QR
                 string createUrl = "http://localhost:9000/api/create/qr/" + packId;

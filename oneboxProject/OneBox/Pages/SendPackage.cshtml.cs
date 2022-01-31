@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
+using OneBox.Repositories;
 
 namespace OneBox.Pages
 {
     public class SendPackageModel : PageModel
     {
         private IHostEnvironment _environment;
+        private IPackRepository _packRepository;
 
         [BindProperty]
         public IFormFile Upload { get; set; }
@@ -41,9 +43,7 @@ namespace OneBox.Pages
 
                 var qrPackCode = BarcodeReader.QuicklyReadOneBarcode(filePath, BarcodeEncoding.All, true);
 
-                // tutaj metoda pobieraj¹ca id paczki i zwracaj¹ca miejsce w paczkomacie (nr skrytki)
-
-                PackageId = 10;
+                PackageId = _packRepository.GetPostBoxId(PackageId);
                 ShowResult = true;
             } catch (Exception)
             {

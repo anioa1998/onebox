@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
+using OneBox.Repositories;
 using System;
 using System.Threading.Tasks;
 
@@ -10,10 +11,12 @@ namespace OneBox.Pages
     public class ReceivePackageModel : PageModel
     {
         private IHostEnvironment _environment;
+        private IPackRepository _packRepository;
 
         [BindProperty]
         public IFormFile Upload { get; set; }
         public int PackageId { get; set; } = 0;
+        public string RecipientPhone { get; set; }
         public bool ShowResult { get; set; } = false;
         public bool ShowError { get; set; } = false;
 
@@ -36,7 +39,9 @@ namespace OneBox.Pages
 
                 // tutaj metoda pobieraj¹ca id paczki i zwracaj¹ca miejsce w paczkomacie (nr skrytki)
 
-                PackageId = 40;
+                var pack = _packRepository.GetPack(PackageId, RecipientPhone);
+                var postBoxId = pack.PostBoxDTO.Id;
+                PackageId = pack.Id;
                 ShowResult = true;
             }
             catch (Exception)

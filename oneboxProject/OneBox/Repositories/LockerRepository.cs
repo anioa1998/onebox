@@ -62,5 +62,9 @@ namespace OneBox.Repositories
             return lockers;
         }
 
+        public ParcelLocker GetParcelLocker(int id)
+        {
+            return _appDbContext.ParcelLockers.Find(id);
+        }
     }
 }

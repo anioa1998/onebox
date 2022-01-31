@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OneBox.DTOs;
+using OneBox.Enums;
 using OneBox.Models;
+using System;
 using System.Linq;
 
 namespace OneBox.Repositories
@@ -14,10 +16,30 @@ namespace OneBox.Repositories
             _appDbContext = appDbContext;
         }
 
-        public PackDTO GetPack(int packId)
+        public int AddPack(PackDTO packDTO, ParcelLocker locker)
+        {
+            Pack packModel = new Pack()
+            {
+                ModifedAt = DateTime.Now,
+                RecipientParcel = locker,
+                SenderPhone = packDTO.SenderPhone,
+                RecipientPhone = packDTO.RecipientPhone,
+                Size = packDTO.Size,
+                State = PackState.P_NEW
+            };
+
+            _appDbContext.Packs.Add(packModel);
+            _appDbContext.SaveChanges();
+            return packModel.Id;
+        }
+
+        public PackDTO GetPack(int packId, string phoneNumber)
         {
             var model = GetPackModel(packId);
-
+            if(model.RecipientPhone != phoneNumber)
+            {
+                return new PackDTO();
+            }
             var packDTO = new PackDTO()
             {
                 Id = model.Id,
@@ -47,9 +69,11 @@ namespace OneBox.Repositories
                                       .Single(p => p.Id == packId);
         }
 
-        public void UpdatePackModel(PackDTO packDTO)
+        public int GetPostBoxId(int packId)
         {
-            throw new System.NotImplementedException();
+            return _appDbContext.Packs.Where(p => p.Id == packId)
+                                      .Select(p => p.PostBox.Id)
+                                      .FirstOrDefault();
         }
     }
 }
