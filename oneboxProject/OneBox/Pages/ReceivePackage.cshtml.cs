@@ -1,9 +1,11 @@
+using IronBarCode;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
 using OneBox.Repositories;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace OneBox.Pages
@@ -29,16 +31,13 @@ namespace OneBox.Pages
         {
             try
             {
-                //var filePath = Path.Combine(_environment.ContentRootPath, "uploads", Upload.FileName);
-                //using (var fileStream = new FileStream(filePath, FileMode.Create))
-                //{
-                //    await Upload.CopyToAsync(fileStream);
-                //}
+                var filePath = Path.Combine(_environment.ContentRootPath, "uploads", Upload.FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Upload.CopyToAsync(fileStream);
+                }
 
-                //var qrPackCode = BarcodeReader.QuicklyReadOneBarcode(filePath, BarcodeEncoding.All, true);
-
-                // tutaj metoda pobieraj¹ca id paczki i zwracaj¹ca miejsce w paczkomacie (nr skrytki)
-
+                var qrPackCode = BarcodeReader.QuicklyReadOneBarcode(filePath, BarcodeEncoding.All, true);
                 var pack = _packRepository.GetPack(PackageId, RecipientPhone);
                 var postBoxId = pack.PostBoxDTO.Id;
                 PackageId = pack.Id;

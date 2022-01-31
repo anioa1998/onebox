@@ -92,8 +92,6 @@ namespace OneBox.Pages
                 MatchError = true;
             }
         }
-        //dodano city i postcode
-        //packsize zwróæ w postaci int 0 - S , 1 - M, 2 - L
         public void OnPostGenerate(string SelectedStreet, string postcode, string city, string StartNumber, string EndNumber, int packSize)
         {
             try
@@ -111,10 +109,7 @@ namespace OneBox.Pages
                     Size = (Size)packSize
                 };
                
-                // tutaj wkleiæ logikê zamawiania paczki, która zwraca Id paczki
                 int packId = _packRepository.AddPack(packDTO, lockerModel);
-
-                // przekierowanie na stronê tworz¹c¹ QR
                 string createUrl = "http://localhost:9000/api/create/qr/" + packId;
                 Redirect(createUrl);
             }
